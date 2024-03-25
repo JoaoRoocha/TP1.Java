@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProdutoEletronico {
     private String nome;
@@ -73,12 +75,43 @@ public class Main {
     public static void main(String[] args) {
         ProdutoEletronico produto1 = new ProdutoEletronico("Iphone 15","Celular", 7899.90,15);
 
-        produto1.exibeInf();
-
         produto1.venderProduto(6);
 
         produto1.addEstoque(5);
 
         produto1.exibeInf();
     }
+}
+
+
+ class ProdutoEletronicoTest {
+
+    @Test
+    public void testVenderProdutoWithSufficientStock() {
+        ProdutoEletronico produto = new ProdutoEletronico("Iphone 15", "Celular", 7899.90, 15);
+        produto.venderProduto(6);
+        assertEquals(9, produto.getQtdEstoque());
+    }
+
+    @Test
+    public void testVenderProdutoWithInsufficientStock() {
+        ProdutoEletronico produto = new ProdutoEletronico("Iphone 15", "Celular", 7899.90, 5);
+        produto.venderProduto(10);
+        assertEquals(5, produto.getQtdEstoque());
+    }
+
+    @Test
+    public void testAddEstoqueWithPositiveQuantity() {
+        ProdutoEletronico produto = new ProdutoEletronico("Iphone 15", "Celular", 7899.90, 10);
+        produto.addEstoque(5);
+        assertEquals(15, produto.getQtdEstoque());
+    }
+
+    @Test
+    public void testAddEstoqueWithNegativeQuantity() {
+        ProdutoEletronico produto = new ProdutoEletronico("Iphone 15", "Celular", 7899.90, 10);
+        produto.addEstoque(-5);
+        assertEquals(10, produto.getQtdEstoque());
+    }
+
 }
